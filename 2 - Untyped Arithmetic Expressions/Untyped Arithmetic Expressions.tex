@@ -1,0 +1,35 @@
+\documentclass[acmlarge]{acmart}
+
+\usepackage[utf8]{inputenc}
+
+\begin{document}
+
+\setcopyright{none}
+\title{Summary of ``Untyped Arithmetic Expressions''}
+\author{Christoph Mende}
+\date{4 April 2017}
+\maketitle
+
+\section{Introduction}
+
+The chapter ``Untyped Arithmetic Expressions'' from the Book ``Types and Programming languages''\cite{Pierce:2002:TPL:509043} is about proofs about programming languages. To do these proofs, a simple, untyped programming language is used. This language consists of the terms $true$, $false$, and $0$, the functions $succ$ to return the successor of a number, $pred$ to return the predecessor of a number, and $iszero$ to return wether a number is zero, and the term $if t then t else t$ where $t$ is any term.
+
+The proofs are done by induction which fits well, because the language is inductively defined. That is, any number is built by calling the successor function. This correlates to how induction works, where you prove that a theorem holds for any term by proving it for a base case (usually $0$) and prove that if it holds for a specific case ($n$), it also holds for it's successor ($n+1$), thus proving that it holds for any $n$. The correlation here is that the inductive definition of the language (numbers are defined as successors) is similar to the second part of the inductive proof (prove that a theorem holds for a successor).
+
+
+% abstract syntax tree
+% induction
+
+% Mengen:
+% Relationen
+% Reflexivität
+% Transitivität
+
+% operational semantics
+% denotational semantics
+% axiomatic semantics
+
+\bibliography{../library}
+\bibliographystyle{ACM-Reference-Format}
+
+\end{document}
