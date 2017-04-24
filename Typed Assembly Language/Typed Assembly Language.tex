@@ -12,8 +12,21 @@
 \date{25 April 2017}
 \maketitle
 
+\section{Introduction}
+
+We want to have a machine-checkable proof, that code has some desired properties. For that we want to use proof carrying code.
+2 Problems to solve: 1: What properties should we require of the code? 2. How do code producers construct a formal proof, that their code has the desired properties?
+1. is extremly context and application dependent. 2. is impossible to solve automatically for arbitrary code.
+One approach is type-preserving compilation. High level programming languages check for type safety. With the help of a type-preserving compiler the type-safe source code is broken down through lower-level intermediate languages to target code. In this process the proof is transformed as well. As there are pre-conceived notions and properties of methods and objects, that may be incomaptible for a given language. So the chance of having a typed intermediate language (TIL) capable of handling all sorts of high level languages and implementation strategies is improbable. The way to go is, to design a TIL that minimizes the need to add new features and typing rules.
 
 \section{TAL-0: Control-Flow-Safety}
+As we do not want a programm to jump to random adresses when it's executed, control-flow safety is crucial, when using dynamic checks in a system.
+We start with a simple abstract machine.
+Each instruction uses the value in a source register $r_s$ an operand \emph{n} (integer literal), \emph{l} (label or pointer) or \emph{r} (register) to compute a value, which is placed in the destination register $r_d$.
+A \emph{value} is an operand, that is not in the register. \emph{I} is defined as list of instructions.
+Instead of using a concrete machine, we take a abstract machine, which has certain distinctions. such as the distinction between labels and arbitrary integers. This helps to state and prove that control-flow instructions can only jump to valid entry points.
+If we try to transfer control to an integer instead of a label, the abstract machine will get stuck. Hence our main goal is to prevent our machine from getting stuck.
+
 
 \section{The TAL-0 Type System}
 
