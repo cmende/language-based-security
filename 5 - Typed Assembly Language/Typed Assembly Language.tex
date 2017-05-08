@@ -3,6 +3,8 @@
 \renewcommand\footnotetextcopyrightpermission[1]{}
 \usepackage[utf8]{inputenc}
 
+\usepackage{ebproof}
+
 \begin{document}
 
 \setcopyright{none}
@@ -35,6 +37,34 @@ The TAL-0 Type System tries to ensure that any state $M$ always has a following 
 The type system in our TAL classifies four different type constructors. These are $int$, $code(\Gamma)$, $\alpha$ and $\forall \alpha. \tau$. The first type is $int$ for simple integer values. The second, $code(\Gamma)$ is for labels and the types that are expected in the registers. $\Gamma$ is a \emph{register file type}, a total function that maps every register to a specific type. The last two types are for polymorphism, $\alpha$ is a type variable that can be substituted for any type and $\forall \alpha. \tau$ is a term that includes the type variable $\alpha$.
 
 Additionally, our type system includes a $\Psi$ that maps every label to a type.
+
+\section{TAL-1: Simple Memory-Safety}
+
+\section{Exercise 4.2.1}
+
+Proof that $r3 := 0$ preserves $\Gamma$:
+
+\begin{prooftree}
+  \Infer0[S-REG]{\Psi;\Gamma \vdash r3 : \Gamma(r3) = int}
+  \Infer0[S-INT]{\Psi \vdash 0 : int}
+  \Infer2{\Psi \vdash r3 := 0 : \Gamma \to \Gamma}
+\end{prooftree}
+
+Proof that $jump\ loop$ preserves $\Gamma$:
+
+\begin{prooftree}
+  \Infer0[S-LAB]{\Psi;\Gamma \vdash loop : \Psi(loop) = code(\Gamma)}
+  \Infer1[S-VAL]{\Psi;\Gamma \vdash loop : code(\Gamma)}
+  \Infer1{\Psi \vdash jump\ loop : code(\Gamma)}
+\end{prooftree}
+
+Proof that $jump\ r4$ preserves $\Gamma$:
+
+\begin{prooftree}
+  \Infer0[S-LAB]{\Psi;\Gamma \vdash r4 : \Gamma(r4) = code(\Gamma)}
+  \Infer1[S-REG]{\Psi;\Gamma \vdash r4 : code(\Gamma)}
+  \Infer1{\Psi \vdash jump\ r4 : code(\Gamma)}
+\end{prooftree}
 
 \bibliography{../library}
 \bibliographystyle{ACM-Reference-Format}
