@@ -38,7 +38,25 @@ The type system in our TAL classifies four different type constructors. These ar
 
 Additionally, our type system includes a $\Psi$ that maps every label to a type.
 
+With the typing rules defined in figure 4-4, it is now possible to show that the register file type $\Gamma$ is never changed.
+
+It is also shown that polymorphism is needed as soon as we assign a label to a register and jump to that label, because the type of the register --- for example register $r1$ --- would be $code(\Gamma)$, but that $code(\Gamma)$ would also include $r1$. The result would be a recursive type. To avoid this, the type of $r1$ inside $code(\Gamma)$ is defined as $\alpha$.
+
+Another use of polymorphism is to enforce a function to not change the contents of a register. If $\Gamma$ is defined in a way that expects $r1$ to be of type $\alpha$ when a label is entered and also after returning, it is not possible for the code under that label to change the contents of $r1$. Any assignment to $r1$ would change the type from $\alpha$ to some concrete type that would not match the expected $\alpha$ on return.
+
+\subsection{Proof of Type Soundness for TAL-0}
+
+The proof of soundness includes two proofs. To be sound, TAL-0 must be able to progress --- that is, any well-formed state $M$ must have a successor state $M'$ --- and it must preserve well-formedness --- that is, the successor state $M'$ is also well-formed if the initial state $M$ was well-formed.
+
+To do this, a few lemmas are defined and the rules in figure 4-4 are used. The actual proof then proceeds by induction on the instruction sequences $I$. $I$ is a good candidate for induction, because it is defined in a way similar to the natural numbers with $0$ being $jump\ v$ and the successors of $0$ being instructions prepended to $jump\ v$.
+
+\subsection{Proof Representation and Checking}
+
+
+
 \section{TAL-1: Simple Memory-Safety}
+
+
 
 \section{Exercise 4.2.1}
 
