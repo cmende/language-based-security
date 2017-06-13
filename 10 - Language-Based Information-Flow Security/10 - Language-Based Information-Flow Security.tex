@@ -37,6 +37,26 @@ Another approach is a noninterference policy. This policy also defines low and h
 
 % A Security-Type System
 
+\section{Derivations}
+
+Derivation for a sequence of assignments.
+
+\begin{prooftree}
+  \Infer0[C2]{[low] \vdash h := l + 4}
+  \Hypo{h \notin Vars(l - 5)}
+  \Infer1[E2]{\vdash l - 5 : low}
+  \Infer1[C3]{[low] \vdash l := l - 5}
+  \Infer2[C4]{[low] \vdash h := l + 4; l := l - 5}
+\end{prooftree}
+
+Derivation for an if statement.
+
+\begin{prooftree}
+  \Infer0[E1]{\vdash h = 1 : high}
+  \Infer0[C2]{[high] \vdash h := h + 4}
+  \Infer0[C1]{[high] \vdash skip}
+  \Infer3[C6]{[high] if h = 1 then h := h + 4 else skip}
+\end{prooftree}
 
 \bibliography{../library}
 \bibliographystyle{ACM-Reference-Format}
